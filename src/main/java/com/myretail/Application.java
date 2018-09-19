@@ -23,9 +23,10 @@ public class Application implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
+        // clear all data in the repository on startup
         repository.deleteAll();
 
-        // save a couple of customers
+        // save a couple of items
         repository.save(new Product("1","Product 1", new Price("$2.99","USD")));
         repository.save(new Product("2","Product 2", new Price("$9.95","USD")));
 

@@ -25,9 +25,8 @@ public class ProductController {
     @ResponseStatus(HttpStatus.OK)
     public Product getProduct(@PathVariable(value = "id") String id)
     {
+        //If the product id is not found an exception is thrown.
         Product product = productService.getProduct(id);
-//        if(product==null)
-            // return NOT FOUND
 
         return product;
     }
@@ -41,10 +40,16 @@ public class ProductController {
             @ApiParam(name = "newProduct", value = "Message to send", required = true) @RequestBody Product newProduct,
             @PathVariable(value = "id") String id){
 
-
-        //TODO: error handling in case the id on the URI doesn't match the ID in the JSON body
-
         //TODO error handling in case the new product can't be formed to the Product object
-        productService.setProduct(newProduct);
+        productService.saveProduct(id,newProduct);
+    }
+
+
+    @RequestMapping(method = RequestMethod.DELETE, value = "/{id}",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public void removeProduct(@PathVariable(value = "id") String id)
+    {
+        productService.removeProduct(id);
     }
 }
