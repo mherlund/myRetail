@@ -36,7 +36,7 @@ public class ProductControllerTest {
 
     @Test
     public void getProduct1Test() throws Exception{
-        Product testProduct = new Product("1","Mock Product 1",new Price("$0.99","USD"));
+        Product testProduct = new Product("1","Mock Product 1",new Price(0.99,"USD"));
 
         // When getProduct is called for id 1, return the testProduct defined above
         given(service.getProduct("1")).willReturn(testProduct);

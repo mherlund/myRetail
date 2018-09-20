@@ -33,8 +33,8 @@ public class ProductControllerIntegrationTest {
 
     @Before
     public void setup(){
-        repository.save(new Product("1","Product 1", new Price("$2.99","USD")));
-        repository.save(new Product("2","Product 2", new Price("$9.95","USD")));
+        repository.save(new Product("1","Product 1", new Price(2.99,"USD")));
+        repository.save(new Product("2","Product 2", new Price(9.95,"USD")));
     }
 
 
@@ -62,7 +62,7 @@ public class ProductControllerIntegrationTest {
     @Test
     public void deleteProduct() throws Exception {
 
-        repository.save(new Product("88","Product 1", new Price("$2.99","USD")));
+        repository.save(new Product("88","Product 1", new Price(2.99,"USD")));
 
         mvc.perform(MockMvcRequestBuilders.delete("/v1/products/88")
                 .accept(MediaType.APPLICATION_JSON_VALUE))

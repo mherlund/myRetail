@@ -27,8 +27,8 @@ public class Application implements CommandLineRunner {
         repository.deleteAll();
 
         // save a couple of items
-        repository.save(new Product("1","Product 1", new Price("$2.99","USD")));
-        repository.save(new Product("2","Product 2", new Price("$9.95","USD")));
+        repository.save(new Product("1","Product 1", new Price(2.99,"USD")));
+        repository.save(new Product("2","Product 2", new Price(9.95,"USD")));
 
 
 

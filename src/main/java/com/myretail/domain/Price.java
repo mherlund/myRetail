@@ -8,23 +8,23 @@ public class Price {
 
     @JsonProperty
     @NotNull
-    private String value;
+    private double value;
 
     @JsonProperty("currency_code")
     @NotNull
     private String currencyCode;
 
 
-    public Price(String value, String currencyCode) {
+    public Price(Double value, String currencyCode) {
         this.value = value;
         this.currencyCode = currencyCode;
     }
 
-    public String getValue() {
+    public Double getValue() {
         return value;
     }
 
-    public void setValue(String value) {
+    public void setValue(Double value) {
         this.value = value;
     }
 
