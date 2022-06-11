@@ -19,9 +19,12 @@ of this application should also be >1 for redundancy.
 2. Run application via gradle task `run`
 3. Use Swagger to access endpoints or other tools like **Postman**
 
+# Testing
+Tests can be run from the project directory using the gradle test task `gradlew test`
+
 # Swagger
 API documentation is done through Swagger.  Endpoints can be viewed and used through the Swagger-UI by accessing the page
-`/swagger-ui.html` ex: `localhost:8080/swagger-ui.html`
+`/swagger-ui/index.html` ex: `http://localhost:8080/swagger-ui/index.html`
 
 # Future Enhancements
 1. Add logging (usage, performance and error)

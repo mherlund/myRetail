@@ -7,10 +7,10 @@ import org.springframework.data.annotation.Id;
 import javax.validation.constraints.NotNull;
 
 public class ProductPrice {
-    //@JsonProperty
-//    @NotNull
+
     @Id
     private String id;
+
     @JsonProperty
     @NotNull
     private Price currentPrice;

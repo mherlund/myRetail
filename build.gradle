@@ -19,7 +19,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
-	implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.13.3'
+	implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.3'
 	implementation 'org.springdoc:springdoc-openapi-ui:1.6.4'
 	implementation 'javax.validation:validation-api:1.1.0.Final'
 

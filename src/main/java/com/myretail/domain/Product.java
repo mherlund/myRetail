@@ -10,11 +10,6 @@ import javax.validation.constraints.NotNull;
 @JsonPropertyOrder({ "id","name","currentPrice" })
 public class Product {
 
-
-
-
-    //@JsonProperty
-//    @NotNull
     @Id
     private String id;
 

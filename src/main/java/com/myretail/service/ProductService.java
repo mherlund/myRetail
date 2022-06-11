@@ -52,8 +52,8 @@ public class ProductService {
         Optional<ProductPrice> productPrice = repository.findById(id);
 
         //If the product is not found, throw ResourceNotFoundException which will return a 404
-        if(!productPrice.isPresent())
-            throw new ResourceNotFoundException("Id is not found");
+        if(productPrice.isEmpty())
+            throw new ResourceNotFoundException("Price is not found");
 
         Price price = new Price(productPrice.get());
 
@@ -65,18 +65,27 @@ public class ProductService {
     /**
      * Saves a Product object to the repository.  This will only save the price and not save a new product name.
      *
+     * @param  id  the id object you want to save.  This id should match the id in the Product object
      * @param  product  the Product object you want to save
      * @throws IdDoesNotMatchException if the id does not match what is in the product
      */
     public void saveProduct(String id,Product product){
-
-
 
         // If the ID supplied doesn't match the ID product, throw an exception
         if(Integer.parseInt(id) != product.getId())
             throw new IdDoesNotMatchException("Product ID's don't match");
         else
             repository.save(new ProductPrice(id, product.getPrice()));
+    }
+
+    /**
+     * Saves a ProductPrice object to the repository.
+     * @param  id  the id object you want to save.
+     * @param  price  the ProductPrice object you want to save
+     */
+    public void saveProduct(String id,Price price){
+
+        repository.save(new ProductPrice(id, price));
     }
 
     /**
@@ -123,6 +132,16 @@ public class ProductService {
 
         return title;
 
+    }
+
+
+
+
+    public void loadSampleData(){
+        repository.save(new ProductPrice("13860428", new Price(13.49,"USD")));
+        repository.save(new ProductPrice("54456119", new Price(13.49,"USD")));
+        repository.save(new ProductPrice("13264003", new Price(13.49,"USD")));
+        repository.save(new ProductPrice("12954218", new Price(.89,"USD")));
     }
 
 }

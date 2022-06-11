@@ -14,6 +14,9 @@ public class Price {
     @NotNull
     private String currencyCode;
 
+    public Price(){
+
+    }
 
     public Price(Double value, String currencyCode) {
         this.value = value;
