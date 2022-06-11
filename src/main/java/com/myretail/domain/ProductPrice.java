@@ -11,19 +11,12 @@ public class ProductPrice {
 //    @NotNull
     @Id
     private String id;
-
-    @JsonProperty
-    @NotNull
-    private String name;
-
     @JsonProperty
     @NotNull
     private Price currentPrice;
 
-
-    public ProductPrice(String id, String name, Price currentPrice) {
+    public ProductPrice(String id, Price currentPrice) {
         this.id = id;
-        this.name = name;
         this.currentPrice = currentPrice;
     }
 
@@ -32,17 +25,8 @@ public class ProductPrice {
         return Integer.parseInt(id);
     }
 
-
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public Price getCurrentPrice() {

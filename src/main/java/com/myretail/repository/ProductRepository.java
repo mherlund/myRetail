@@ -1,10 +1,10 @@
 package com.myretail.repository;
 
-import com.myretail.domain.Product;
+import com.myretail.domain.ProductPrice;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 
-public interface ProductRepository extends MongoRepository<Product, String> {
+public interface ProductRepository extends MongoRepository<ProductPrice, String> {
 
-    Product findByName(String name);
+    ProductPrice findByName(String id);
 }
