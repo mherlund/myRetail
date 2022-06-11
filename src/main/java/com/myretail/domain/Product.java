@@ -22,7 +22,7 @@ public class Product {
     @NotNull
     private String name;
 
-    @JsonProperty
+    @JsonProperty("current_price")
     @NotNull
     private Price currentPrice;
 
