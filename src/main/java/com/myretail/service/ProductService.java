@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Optional;
@@ -86,30 +88,36 @@ public class ProductService {
     public String lookupExternalData(String id) throws ResourceNotFoundException{
 
         RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<String> response;
+
         String externalURL
                 = "https://redsky-uat.perf.target.com/redsky_aggregations/v1/redsky/"+
                 "case_study_v1?key=3yUxt7WltYG7MFKPp7uyELi1K40ad2ys&tcin="+id;
-
-        ResponseEntity<String> response = restTemplate.getForEntity(externalURL, String.class);
-
-
-        if (response.getStatusCode() == HttpStatus.OK){
-
-            ObjectMapper mapper = new ObjectMapper();
-            JsonNode root = null;
-            try {
-                root = mapper.readTree(response.getBody());
-            } catch (JsonProcessingException e) {
-                throw new RuntimeException(e);
-            }
-            String title = root.findPath("title").textValue();
-
-            return response.getBody();
+        try{
+            response = restTemplate.getForEntity(externalURL, String.class);
         }
-        else {
-            throw new ResourceNotFoundException("No data returned from" + externalURL);
+        catch(HttpClientErrorException e){
+            throw new ResourceNotFoundException("No data returned from" + externalURL, e);
+        }
+        catch(HttpServerErrorException e){
+            throw e;
+        }
+        catch (Exception e){
+            throw e;
         }
 
+        // Spring is handling responses, so no extra checking for HTTP status codes
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode root = null;
+        try {
+            root = mapper.readTree(response.getBody());
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+        String title = root.findPath("title").textValue();
+        //TODO: error handling if title is not found
+
+        return title;
 
     }
 
