@@ -20,6 +20,14 @@ public class Price {
         this.currencyCode = currencyCode;
     }
 
+    public Price(Price price){
+        this(price.getValue(), price.getCurrencyCode());
+    }
+
+    public Price(ProductPrice productPrice) {
+        this(productPrice.getCurrentPrice());
+    }
+
     public Double getValue() {
         return value;
     }

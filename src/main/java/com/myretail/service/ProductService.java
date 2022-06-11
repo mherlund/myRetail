@@ -3,12 +3,13 @@ package com.myretail.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.myretail.domain.Price;
 import com.myretail.domain.Product;
+import com.myretail.domain.ProductPrice;
 import com.myretail.exceptions.IdDoesNotMatchException;
 import com.myretail.exceptions.ResourceNotFoundException;
 import com.myretail.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
@@ -35,31 +36,34 @@ public class ProductService {
      */
     public Product getProduct(String id){
 
-        Optional<Product> product = repository.findById(id);
-
         String externalData;
 
+        // Treating the external lookup as the source of truth, if the product isn't there,
         try {
             externalData = lookupExternalData(id);
         } catch (ResourceNotFoundException e) {
+            // TODO: more error handling depending on how to treat missing prices
             throw e;
         }
 
 
+
+        // Get product price from repository
+        Optional<ProductPrice> productPrice = repository.findById(id);
+
         //If the product is not found, throw ResourceNotFoundException which will return a 404
-        if(!product.isPresent())
+        if(!productPrice.isPresent())
             throw new ResourceNotFoundException("Id is not found");
 
+        Price price = new Price(productPrice.get());
 
-
-
-        return product.get();
+        return new Product(id, externalData, price);
 
     }
 
 
     /**
-     * Saves a Product object to the repository.
+     * Saves a Product object to the repository.  This will only save the price and not save a new product name.
      *
      * @param  product  the Product object you want to save
      * @throws IdDoesNotMatchException if the id does not match what is in the product
@@ -72,7 +76,7 @@ public class ProductService {
         if(Integer.parseInt(id) != product.getId())
             throw new IdDoesNotMatchException("Product ID's don't match");
         else
-            repository.save(product);
+            repository.save(new ProductPrice(id, product.getPrice()));
     }
 
     /**
@@ -108,7 +112,7 @@ public class ProductService {
 
         // Spring is handling responses, so no extra checking for HTTP status codes
         ObjectMapper mapper = new ObjectMapper();
-        JsonNode root = null;
+        JsonNode root;
         try {
             root = mapper.readTree(response.getBody());
         } catch (JsonProcessingException e) {

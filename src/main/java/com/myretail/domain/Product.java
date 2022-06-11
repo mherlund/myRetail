@@ -24,13 +24,13 @@ public class Product {
 
     @JsonProperty("current_price")
     @NotNull
-    private Price currentPrice;
+    private Price price;
 
 
-    public Product(String id, String name, Price currentPrice) {
+    public Product(String id, String name, Price price) {
         this.id = id;
         this.name = name;
-        this.currentPrice = currentPrice;
+        this.price = price;
     }
 
     @JsonGetter("id")
@@ -51,12 +51,12 @@ public class Product {
         this.name = name;
     }
 
-    public Price getCurrentPrice() {
-        return currentPrice;
+    public Price getPrice() {
+        return price;
     }
 
-    public void setCurrentPrice(Price currentPrice) {
-        this.currentPrice = currentPrice;
+    public void setPrice(Price price) {
+        this.price = price;
     }
 
 }

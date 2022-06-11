@@ -2,7 +2,6 @@ package com.myretail.controller;
 
 import com.myretail.domain.Product;
 import com.myretail.service.ProductService;
-//import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -26,9 +25,7 @@ public class ProductController {
     public Product getProduct(@PathVariable(value = "id") String id)
     {
         //If the product id is not found an exception is thrown.
-        Product product = productService.getProduct(id);
-
-        return product;
+        return productService.getProduct(id);
     }
 
 
