@@ -1,0 +1,34 @@
+plugins {
+	id 'org.springframework.boot' version '2.7.0'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+	id 'idea'
+	id 'application'
+}
+
+group = 'com.myretail'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+mainClassName="com.myretail.MyRetailApplication"
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+	implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.13.3'
+	implementation 'org.springdoc:springdoc-openapi-ui:1.6.4'
+	implementation 'javax.validation:validation-api:1.1.0.Final'
+
+	testImplementation 'junit:junit'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
